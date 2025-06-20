@@ -1,16 +1,22 @@
 import requests
 import os
+import matplotlib.pyplot as grafico
 
 # lancio il pulisci schermo
 os.system("cls")
 
 # recupera le coordinate da nominatim di un luogo
 def DammiLocalizzazione(luogo):
-    risposta = requests.get("https://nominatim.openstreetmap.org/search", params= {
-        "q"      : luogo,
-        "format" : "json",
-        "limit"  : 1
-    })
+    risposta = requests.get("https://nominatim.openstreetmap.org/search",
+                            params= {
+                                "q"      : luogo,
+                                "format" : "json",
+                                "limit"  : 1
+                            },
+                            headers= {
+                                "User-Agent": "mio meteo"
+                            }
+    )
     if risposta.status_code == 200:
         print("luogo recuperato...")
         return risposta.json()[0]
@@ -34,8 +40,13 @@ def DammiMeteo(lat, lon):
         return None
     
 
-# recupero Arezzo
-luogo = DammiLocalizzazione("Arezzo")
+# recupero dove
+print("-" * 10)
+print("MIO METEO!!!")
+print("-" * 10)
+print("mi dici dove?\t", end="")
+nome = input()
+luogo = DammiLocalizzazione(nome)
 if luogo is not None:
     # recupero le previsioni
     previsioni = DammiMeteo(luogo["lat"], luogo["lon"])
@@ -43,3 +54,6 @@ if luogo is not None:
         # stampo il meteo
         print( previsioni["current"]["temperature_2m"] )
         print( previsioni["current"]["relative_humidity_2m"] )
+        futuro = previsioni["hourly"]
+        grafico.scatter(futuro["time"], futuro["temperature_2m"])
+        grafico.show()
