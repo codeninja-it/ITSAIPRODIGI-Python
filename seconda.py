@@ -47,7 +47,7 @@ while continua:
             operazione = None
         
     # interagisci
-    if operazione != None:
+    if operazione is not None:
         clear()
         print("Base:\t", end="")
         base = int( input() )
