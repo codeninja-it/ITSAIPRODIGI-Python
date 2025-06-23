@@ -12,7 +12,7 @@ dbexe = dbcon.cursor()
 dbexe.execute(
     "CREATE TABLE IF NOT EXISTS letture("+ 
         "idLettura INTEGER PRIMARY KEY AUTOINCREMENT," +
-        "velocita NUMBER," + 
+        "vento NUMBER," + 
         "temperatura NUMBER," +
         "umidita NUMBER,"  +
         "quando DATETIME" +
@@ -22,7 +22,7 @@ dbexe.execute(
 # per dieci volte
 for n in range(10):
     # eseguo una richiesta di inserimento
-    dbexe.execute("INSERT INTO letture (velocita, temperatura, umidita) VALUES (0, 0, 0)")
+    dbexe.execute("INSERT INTO letture (vento, temperatura, umidita) VALUES (0, 0, 0)")
 
 # chiudo la transazione rendendo le mi richieste
 # accessibili anche ad altri
