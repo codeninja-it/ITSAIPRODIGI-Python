@@ -2,6 +2,7 @@ import requests
 import os
 import matplotlib.pyplot as grafico
 import sqlite3 as db
+import funzioni as fn
 
 # lancio il pulisci schermo
 os.system("cls")
